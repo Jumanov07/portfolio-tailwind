@@ -34,15 +34,23 @@ const STYLE_INPUT =
 
 const Contacts = () => {
   const onSubmit = async (values, { resetForm }) => {
-    try {
-      await axios.post("https://breakable-tick-stole.cyclic.app/api/v1/send-telegram", values);
-
-      toast.success("Successfully dispatched!");
-    } catch (error) {
-      toast.error(error.message);
-    }
-
-    resetForm();
+    toast
+      .promise(
+        axios.post(
+          "https://breakable-tick-stole.cyclic.app/api/v1/send-telegra",
+          values
+        ),
+        {
+          pending: "Sending data... 🕒",
+          success: "Successfully sent 👌",
+        }
+      )
+      .then(() => {
+        resetForm();
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   const { handleSubmit, values, handleChange, errors } = useFormik({
