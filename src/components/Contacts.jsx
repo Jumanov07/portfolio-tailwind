@@ -35,10 +35,7 @@ const STYLE_INPUT =
 const Contacts = () => {
   const onSubmit = async (values, { resetForm }) => {
     try {
-      await axios.post(
-        "https://portfolio-a7a05-default-rtdb.firebaseio.com/profile.json",
-        values
-      );
+      await axios.post("https://breakable-tick-stole.cyclic.app/api/v1/send-telegram", values);
 
       toast.success("Successfully dispatched!");
     } catch (error) {
