@@ -37,7 +37,7 @@ const Contacts = () => {
     toast
       .promise(
         axios.post(
-          "https://breakable-tick-stole.cyclic.app/api/v1/send-telegra",
+          "https://breakable-tick-stole.cyclic.app/api/v1/send-telegram",
           values
         ),
         {
