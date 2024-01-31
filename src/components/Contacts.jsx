@@ -3,36 +3,29 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
-const showErrors = (errors) => {
-  let errorMessage = null;
-
-  if (Object.keys(errors).length > 1) {
-    errorMessage = "Please fill in all fields!";
-  } else if (errors?.name) {
-    errorMessage = errors?.name;
-  } else if (errors?.age) {
-    errorMessage = errors?.age;
-  } else if (errors?.email) {
-    errorMessage = errors?.email;
-  } else if (errors?.password) {
-    errorMessage = errors?.password;
-  }
-
-  return errorMessage;
-};
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Name mandatory field!"),
-  email: Yup.string()
-    .email("Invalid email address!")
-    .required("Email mandatory field!"),
-  message: Yup.string().required("Message mandatory field!"),
-});
-
 const STYLE_INPUT =
   "w-full lg:my-3 my-4 rounded-lg bg-slate-800 p-4 border-2 border-fuchsia-800 b_glow text-xl text-slate-500";
 
-const Contacts = () => {
+// eslint-disable-next-line react/prop-types
+const Contacts = ({ language }) => {
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required(
+      language ? "Name mandatory field!" : "Имя обязательное поле!"
+    ),
+    email: Yup.string()
+      .email(
+        language
+          ? "Invalid email address!"
+          : "Неверный адрес электронной почты!"
+      )
+      .required(
+        language ? "Email mandatory field!" : "Почта обязательное поле!"
+      ),
+    message: Yup.string().required(
+      language ? "Message mandatory field!" : "Сообщение обязательное поле!"
+    ),
+  });
+
   const onSubmit = async (values, { resetForm }) => {
     toast
       .promise(
@@ -41,8 +34,8 @@ const Contacts = () => {
           values
         ),
         {
-          pending: "Sending data... 🕒",
-          success: "Successfully sent 👌",
+          pending: language ? "Sending data... 🕒" : "Отправляется... 🕒",
+          success: language ? "Successfully sent 👌" : "Успешно отправлено 👌",
         }
       )
       .then(() => {
@@ -64,6 +57,26 @@ const Contacts = () => {
     validationSchema,
   });
 
+  const showErrors = (errors) => {
+    let errorMessage = null;
+
+    if (Object.keys(errors).length > 1) {
+      errorMessage = language
+        ? "Please fill in all fields!"
+        : "Пожалуйста, заполните все поля!";
+    } else if (errors?.name) {
+      errorMessage = errors?.name;
+    } else if (errors?.age) {
+      errorMessage = errors?.age;
+    } else if (errors?.email) {
+      errorMessage = errors?.email;
+    } else if (errors?.password) {
+      errorMessage = errors?.password;
+    }
+
+    return errorMessage;
+  };
+
   return (
     <section
       id="Contacts"
@@ -73,14 +86,14 @@ const Contacts = () => {
         data-aos="fade-left"
         className="text-[52px] font-semibold mb-20 leading-normal uppercase text-fuchsia-500"
       >
-        Contact Me
+        {language ? "Contact Me" : "Написать мне"}
       </h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-9 lg:w-1/2">
         <div className="lg:flex gap-6">
           <input
             className={STYLE_INPUT}
-            placeholder="Enter Your Name"
+            placeholder={language ? "Enter Your Name" : "Напишите ваше имя"}
             type="text"
             name="name"
             onChange={handleChange}
@@ -89,7 +102,7 @@ const Contacts = () => {
 
           <input
             className={STYLE_INPUT}
-            placeholder="Enter Your Email"
+            placeholder={language ? "Enter Your Email" : "Напишите вашу почту"}
             type="email"
             name="email"
             onChange={handleChange}
@@ -99,7 +112,9 @@ const Contacts = () => {
 
         <textarea
           className={`${STYLE_INPUT} resize-none`}
-          placeholder="Write You Message..."
+          placeholder={
+            language ? "Write You Message..." : "Напишите ваше сообщение"
+          }
           name="message"
           cols="20"
           rows="10"
@@ -115,7 +130,7 @@ const Contacts = () => {
           className="neno-button shadow-xl my-6 hover:shadow-fuchsia-800/50 text-white border-2 border-fuchsia-800 bg-fuchsia-800  hover:bg-slate-900 rounded-lg py-4 px-8 uppercase relative  overflow-hidden b_glow text-xl text-bold mb-10"
           type="submit"
         >
-          Submit
+          {language ? "Submit" : "Отправить"}
         </button>
       </form>
     </section>

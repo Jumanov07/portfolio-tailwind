@@ -1,3 +1,4 @@
+import { useState } from "react";
 import About from "./components/About";
 import Banner from "./components/Banner";
 import Contacts from "./components/Contacts";
@@ -7,20 +8,22 @@ import Projects from "./components/Projects";
 import Services from "./components/Services";
 
 const App = () => {
+  const [language, setLanguage] = useState(false);
+
   return (
     <div className="bg-slate-900">
       <div className="mx-auto max-w-[1440px] overflow-x-hidden pt-10">
-        <Header />
+        <Header language={language} setLanguage={setLanguage} />
 
         <main>
-          <Banner />
-          <About />
-          <Services />
-          <Projects />
-          <Contacts />
+          <Banner language={language} />
+          <About language={language} />
+          <Services language={language} />
+          <Projects language={language} />
+          <Contacts language={language} />
         </main>
 
-        <Footer />
+        <Footer language={language} />
       </div>
     </div>
   );

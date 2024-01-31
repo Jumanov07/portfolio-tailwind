@@ -24,7 +24,7 @@ const PROJECTS = [
     style: {
       height: "150px",
     },
-    url: "https://gadgetarium.vercel.app/",
+    url: "https://bit.ly/4aeK99h",
   },
   {
     id: 3,
@@ -34,40 +34,39 @@ const PROJECTS = [
     style: {
       height: "150px",
     },
-    url: "https://medcheck-three.vercel.app/",
+    url: "https://bit.ly/3Rudipr",
   },
 ];
 
-const Projects = () => {
-  return (
-    <section
-      id="Projects"
-      className="p-20 flex flex-col items-center justify-center"
+// eslint-disable-next-line react/prop-types
+const Projects = ({ language }) => (
+  <section
+    id="Projects"
+    className="p-20 flex flex-col items-center justify-center"
+  >
+    <h1
+      data-aos="fade-right"
+      className="text-[52px] font-semibold mb-20 leading-normal uppercase text-fuchsia-500"
     >
-      <h1
-        data-aos="fade-right"
-        className="text-[52px] font-semibold mb-20 leading-normal uppercase text-fuchsia-500"
-      >
-        Projects
-      </h1>
+      {language ? "Projects" : "Проекты"}
+    </h1>
 
-      <div className="flex w-full flex-wrap gap-7 justify-evenly">
-        {PROJECTS.map(({ id, image, name, aos, style, url }) => (
-          <a key={id} href={url}>
-            <img
-              style={style}
-              data-aos={aos}
-              height={250}
-              width={250}
-              className={STYLE_IMG}
-              src={image}
-              alt={name}
-            />
-          </a>
-        ))}
-      </div>
-    </section>
-  );
-};
+    <div className="flex w-full flex-wrap gap-7 justify-evenly">
+      {PROJECTS.map(({ id, image, name, aos, style, url }) => (
+        <a key={id} href={url}>
+          <img
+            style={style}
+            data-aos={aos}
+            height={250}
+            width={250}
+            className={STYLE_IMG}
+            src={image}
+            alt={name}
+          />
+        </a>
+      ))}
+    </div>
+  </section>
+);
 
 export default Projects;

@@ -6,7 +6,8 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 
-const Banner = () => {
+// eslint-disable-next-line react/prop-types
+const Banner = ({ language }) => {
   useEffect(() => {
     Aos.init({
       easing: "ease-in-quart",
@@ -25,13 +26,16 @@ const Banner = () => {
           data-aos="fade-right"
           className="text-[52px] font-semibold mb-8 leading-normal uppercase"
         >
-          Welcome To <span className="text-fuchsia-500 ">My Website</span>
+          {language ? "Welcome To" : "Добро пожаловать на мой"} {""}
+          <span className="text-fuchsia-500 ">
+            {language ? "My Website" : "Вебсайт"}
+          </span>
         </h1>
 
         <p data-aos="fade-left">
-          Here you will find my projects and experience in frontend development.
-          I invite you to explore my work and learn more about my professional
-          journey.
+          {language
+            ? "Here you will find my projects and experience in frontend development. I invite you to explore my work and learn more about my professional journey."
+            : "Здесь вы найдете мои проекты и опыт разработки фронтендов. Я приглашаю вас познакомиться с моими работами и узнать больше о моем профессиональном пути."}
         </p>
 
         <div className="flex mt-8 gap-2">
